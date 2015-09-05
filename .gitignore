@@ -1,3 +1,4 @@
 *.pyc
 venv/
 migrations/
+node_modules/
