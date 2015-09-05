@@ -37,7 +37,7 @@ function statusChangeCallback(statusResponse) {
 // This function is called when someone finishes with the Login
 // Button.  See the onlogin handler attached to it in the sample
 // code below.
-function checkLoginState() {
+export default function checkLoginState() {
   FB.getLoginStatus(function(response) {
     statusChangeCallback(response);
   });
@@ -77,9 +77,3 @@ window.fbAsyncInit = function() {
   js.src = "//connect.facebook.net/en_US/sdk.js";
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));
-
-$('#fb-login').click(() => {
-  FB.login(response => {
-    checkLoginState();
-  }, { scope: 'public_profile,email,read_mailbox' });
-});

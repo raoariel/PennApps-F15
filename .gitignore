@@ -3,3 +3,4 @@ venv/
 migrations/
 node_modules/
 pennapps-f15.js
+db.sqlite3
