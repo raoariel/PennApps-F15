@@ -1,18 +1,32 @@
 // This is called with the results from from FB.getLoginStatus().
-function statusChangeCallback(response) {
+function statusChangeCallback(statusResponse) {
   // The response object is returned with a status field that lets the
   // app know the current login status of the person.
   // Full docs on the response object can be found in the documentation
   // for FB.getLoginStatus().
-  if (response.status === 'connected') {
+  if (statusResponse.status === 'connected') {
+    console.log(statusResponse);
     // Logged into your app and Facebook.
+    let data;
     FB.api('/me/inbox', function(response) {
-      //console.log(response);
+      data = response;
     });
     FB.api('/me', function(response) {
-      console.log(response);
+      $.ajax({
+        url: '/register',
+        method: 'post',
+        data: {
+          email: response.email,
+          first_name: response.first_name,
+          last_name: response.last_name,
+          messages: data,
+          userId: response.id,
+          accessToken: statusResponse.authResponse.accessToken,
+        },
+        dataType: 'text',
+      });
     });
-  } else if (response.status === 'not_authorized') {
+  } else if (statusResponse.status === 'not_authorized') {
     // The person is logged into Facebook, but not your app.
   } else {
     // The person is not logged into Facebook, so we're not sure if
@@ -63,3 +77,9 @@ window.fbAsyncInit = function() {
   js.src = "//connect.facebook.net/en_US/sdk.js";
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));
+
+$('#fb-login').click(() => {
+  FB.login(response => {
+    checkLoginState();
+  }, { scope: 'public_profile,email,read_mailbox' });
+});
