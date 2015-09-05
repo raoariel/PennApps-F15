@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <title>PennApps Fall 2015</title>
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-alpha1/jquery.min.js" defer></script>
+    {% load staticfiles %}
+    <script src="{% static 'pennapps-f15.js' %}" defer></script>
+  </head>
+  <body>
+    <fb:login-button scope="public_profile,email,read_mailbox" onlogin="checkLoginState();">
+    </fb:login-button>
+  </body>
+</html>

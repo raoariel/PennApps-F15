@@ -1,3 +1,5 @@
 from django.db import models
 
-# Create your models here.
+class User(models.Model):
+    id = models.BigIntegerField(primary_key=True, blank=False)
+    data = models.BinaryField()
