@@ -3,7 +3,7 @@
 # traits:
 #   - caps usage
 #   - grammar nazi
-#     - perfect grammar
+#     - perfect grammar SKIP
 #     - formality :: capital i, contractions, etc. 
 #   - use of ...
 #   - smilies and which
@@ -56,6 +56,7 @@ class ParseTraits(object):
     self.exclamation_count = 0
     self.formality_I = True
     self.used_contractions = {}
+    self.used_slang = set()
     self.filler = set()
     self.emoticons = {
       ":)": 0,
@@ -86,6 +87,8 @@ class ParseTraits(object):
       'lets': "let's", 
       'weve': "we've"
     } 
+    # slang which can be interchangeable used, for the most part
+    self.slang = {'omg','lol','mkay','atm','rotfl'}
     self.word_count = 0
     for m in messages:
       m_words = m['message'].split()
@@ -94,8 +97,7 @@ class ParseTraits(object):
       self.setTraitEllipsesExclamation(m_words)
       self.setTraitEmoticon(m_words)
       self.setTraitBlocking(m_words)
-      # self.setTraitGrammar(m_words)
-      # self.setTraitSlang(m_words)
+      self.setTraitSlang(m_words)
       self.setTraitFiller(m_words)
     self.blocking = (self.word_count / self.message_count) > 8
     return 
@@ -103,6 +105,9 @@ class ParseTraits(object):
   def setTraitSlang(self, message):
     # for each message, split space, 
     # check is caps , or .. in list etc.
+    for slang in self.slang:
+      if slang in message:
+        self.used_slang.add(slang)
     return 
 
   def setTraitCaps(self, message):
@@ -144,14 +149,6 @@ class ParseTraits(object):
     self.word_count += len(message)
     return 
   
-  # def setTrait_grammar(self, message):
-  #   """not mvp"""
-  #   return 
-  
-  # def setTrait_slang(self, message):
-  #   """not mvp"""
-  #   return 
-  
   def setTraitFiller(self, message):
     """not mvp, but like umm, hmm, well.. mhm mm uhhh ehh"""
     regs = {r'^um+$', r'^hm+$', r'^well+$', r'^mhm+$', r'^mm+$', r'^uh+$', r'^eh+$'}
@@ -172,6 +169,7 @@ class ParseTraits(object):
     traits['ellipses_count'] = self.ellipses_count # int
     traits['exclamation_count'] = self.exclamation_count # int
     traits['blocking'] = self.blocking # bool
+    traits['used_slang'] = self.used_slang # set
     return traits
 
 class GetTopics(object):
