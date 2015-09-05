@@ -1,0 +1,25 @@
+{
+  "name": "pennapps-f15",
+  "version": "0.0.1",
+  "description": "Interact with an AI constructed based on information from your Facebook.",
+  "scripts": {
+    "start": "python pennapps/manage.py runserver",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/raoariel/PennApps-F15.git"
+  },
+  "author": "Felipe Vargas",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/raoariel/PennApps-F15/issues"
+  },
+  "homepage": "https://github.com/raoariel/PennApps-F15#readme",
+  "devDependencies": {
+    "babelify": "^6.3.0",
+    "grunt": "^0.4.5",
+    "grunt-browserify": "^4.0.1",
+    "jit-grunt": "^0.9.1"
+  }
+}
