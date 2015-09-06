@@ -21,6 +21,10 @@ On the frontend, our web app provides a clean interface for realtime interaction
 ## What's next for Plaidypus?
 To grow and learn.
 
+# Development
+- Running the web app development server is as simple as running `npm start`.
+- To compile the source and watch for changes, run `grunt dev`.
+
 Team
 -----------------------------
 ```
