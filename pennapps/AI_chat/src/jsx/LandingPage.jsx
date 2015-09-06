@@ -5,7 +5,6 @@ export default class LandingPage extends React.Component {
     return (
       <div className='landing-page'>
         <button
-          className='login-button'
           id='fb-login'
           type='button'
           onClick={ () => {
