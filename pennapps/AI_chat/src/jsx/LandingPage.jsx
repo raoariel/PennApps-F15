@@ -1,26 +1,31 @@
 export default class LandingPage extends React.Component {
+  constructor(props) {
+    super(props);
+  }
   /**
    * This function is called when someone finishes with the Login
    * Button.  See the onlogin handler attached to it in the sample
    * code below.
    */
   checkLoginState() {
-    FB.getLoginStatus(function(response) {
+    FB.getLoginStatus(response => {
       this.props.statusChangeCallback(response);
     });
   }
   render() {
     return (
       <div className='landing-page'>
-        <button
-          id='fb-login'
-          type='button'
-          onClick={ () => {
-            FB.login(() => {
-              this.checkLoginState();
-            }, { scope: 'public_profile,email,read_mailbox' });
-          }}
-        >Login with Facebook</button>
+        <div className='landing-page-body'>
+          <a
+            className='button button-3d button-primary button-rounded login'
+            id='fb-login'
+            onClick={ () => {
+              FB.login(() => {
+                this.checkLoginState();
+              }, { scope: 'public_profile,email,read_mailbox' });
+            }}
+          >Login with Facebook</a>
+        </div>
       </div>
     );
   }

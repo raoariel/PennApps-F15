@@ -5,3 +5,4 @@ node_modules/
 pennapps-f15.js
 pennapps-f15.css
 db.sqlite3
+.DS_Store

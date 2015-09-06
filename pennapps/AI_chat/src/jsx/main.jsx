@@ -51,12 +51,11 @@ class Main extends React.Component {
     if (statusResponse.status === 'connected') {
       // Logged into your app and Facebook.
       let data;
-      FB.api('/me/inbox', function(response) {
+      FB.api('/me/inbox', response => {
         data = response;
       });
       FB.api('/me', response => {
         this.login();
-
         $.ajax({
           url: '/register',
           method: 'post',
@@ -67,7 +66,6 @@ class Main extends React.Component {
             messages: data,
             userId: response.id,
             accessToken: statusResponse.authResponse.accessToken,
-            success: response => console.log(response),
           },
           dataType: 'text',
         });
@@ -97,4 +95,4 @@ class Main extends React.Component {
   }
 }
 
-React.render(<Main />, $('body')[0]);
+React.render(<Main />, $('.main-body')[0]);
