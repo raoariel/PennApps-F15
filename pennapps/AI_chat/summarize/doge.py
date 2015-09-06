@@ -20,7 +20,6 @@ class DogeMachine(object):
 		self.doge = dogeLoc
 		self.getContent()
 		self.summarizeContent()
-		return self.dogeWords
 
 	def getContent(self):
 		# Scrape the site for the article content
@@ -41,3 +40,6 @@ class DogeMachine(object):
 		filteredWords = set(filteredWords)
 		self.dogeWords = random.sample(filteredWords, min(len(filteredWords),5))
 		return
+
+	def getDogeWords(self):
+		return self.dogeWords
