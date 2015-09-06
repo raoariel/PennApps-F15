@@ -7,7 +7,7 @@ import operator
 import urllib2
 import cleverbot
 from random import randint
-from AI_chat import utils
+from utils import GetData, ParseTraits
 
 from chatterbotapi import ChatterBotFactory, ChatterBotType
 
@@ -26,6 +26,7 @@ stops = set(stopwords.words('english'))
 fillers = ['hmmm..', 'uhh..', 'umm..', 'yeah..']
 
 gif_counter = 0
+ellipses = 0
 
 
 # Chatting traits:
@@ -141,6 +142,11 @@ def get_gif(query):
 	return data['data'][0]['embed_url']
 # print data['data'][0]['embed_url']
 
+def get_traits():
+	get_data = GetData()
+	data = get_data.getDataValues()
+	trait_parser = ParseTraits(data)
+	return trait_parser.getTraits()
 
 factory = ChatterBotFactory()
 
@@ -150,8 +156,13 @@ bot1session = bot1.create_session()
 bot2 = factory.create(ChatterBotType.PANDORABOTS, 'b0dafd24ee35a477')
 bot2session = bot2.create_session()
 
+traits = get_traits()
+print traits
+
+
+
 def get_bot_response(user_message):
-	global gif_counter
+	global gif_counter, ellipses
 	if 'name?' in user_message:
 		return "i'm animesh.."
 	if 'who are you?' in user_message:
@@ -175,6 +186,12 @@ def get_bot_response(user_message):
 	sentiment = indicoio.sentiment(resp)
 	resp.replace("'", '')
 	# print sentiment
+
+	if traits['ellipses_count'] > 10:
+		ellipses += 1
+		if ellipses % 5 == 0:
+			resp += "... "
+
 	if sentiment > 0.90:
 		resp += "!!!"
 	if sentiment > 0.8:
@@ -183,6 +200,8 @@ def get_bot_response(user_message):
 		resp += " :("
 
 	return resp
+
+
 
 while (1):
 	s = raw_input("you : ")
