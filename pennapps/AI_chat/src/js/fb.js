@@ -5,7 +5,6 @@ function statusChangeCallback(statusResponse) {
   // Full docs on the response object can be found in the documentation
   // for FB.getLoginStatus().
   if (statusResponse.status === 'connected') {
-    console.log(statusResponse);
     // Logged into your app and Facebook.
     let data;
     FB.api('/me/inbox', function(response) {
