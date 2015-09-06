@@ -18,7 +18,9 @@ class DogeMachine(object):
 	def __init__(self,article="http://www.theonion.com/article/gay-teen-worried-he-might-be-christian-2888", dogeLoc='doge.jpeg'):
 		self.article = article
 		self.doge = dogeLoc
-		return
+		self.getContent()
+		self.summarizeContent()
+		return self.dogeWords
 
 	def getContent(self):
 		# Scrape the site for the article content
@@ -39,20 +41,3 @@ class DogeMachine(object):
 		filteredWords = set(filteredWords)
 		self.dogeWords = random.sample(filteredWords, min(len(filteredWords),5))
 		return
-
-	def overlayContent(self):
-		# Add words to doge image
-		imageFile = self.doge
-		img = Image.open(imageFile)
-		draw = ImageDraw.Draw(img)
-		font = ImageFont.truetype("ARIAL.ttf",40)
-		# Randomly distribute words across image
-		heights = [i+20 for i in range(0,500,100)]
-		widths = [i+20 for i in range(0,400,75)]
-		shuffle(heights)
-		shuffle(widths)
-		coord = zip(widths,heights)
-		for i in xrange(len(dogeWords)):
-			draw.text((coord[i]),dogeWords[i],(255,255,255), font=font)
-		draw = ImageDraw.Draw(img)
-		img.save("OGDoge.png")
