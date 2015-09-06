@@ -150,37 +150,31 @@ bot1session = bot1.create_session()
 bot2 = factory.create(ChatterBotType.PANDORABOTS, 'b0dafd24ee35a477')
 bot2session = bot2.create_session()
 
-while (1):
-	s = raw_input("you : ")
+def get_bot_response(user_message):
+	global gif_counter
+	if 'name?' in user_message:
+		return "i'm animesh.."
+	if 'who are you?' in user_message:
+		return "you know me.."
 
-	# Checking for "name?"
-	if 'name?' in s:
-		print "shadow : i'm animesh.."
-		continue
-	if 'who are you?' in s:
-		print 'you know me'
-		continue
-
-	if 'where' in s and 'live?' in s:
-		print '.. in Bangalore, India'
-		continue
+	if 'where' in user_message and 'live?' in user_message:
+		return "in Bangalore, India"
 	# Checking for GIF usage
-	if 'ing' in s:
+	if 'ing' in user_message:
 		gif_counter += 1
 		if gif_counter % 2 == 0:
-			s = s.lower()
-			s = ' '.join([word for word in s.split() if word not in stops])
-			s.strip()
+			user_message = user_message.lower()
+			user_message = ' '.join([word for word in user_message.split() if word not in stops])
+			user_message.strip()
 			gif_url = get_gif(s)
-			print gif_url
-			continue
+			return gif_url
 
-	resp = bot1session.think(s).lower()
-	if '?' in s:
+	resp = bot1session.think(user_message).lower()
+	if '?' in user_message:
 		resp = fillers[randint(0,len(fillers)-1)] + " " + resp
 	sentiment = indicoio.sentiment(resp)
 	resp.replace("'", '')
-	print sentiment
+	# print sentiment
 	if sentiment > 0.90:
 		resp += "!!!"
 	if sentiment > 0.8:
@@ -188,7 +182,12 @@ while (1):
 	if sentiment < 0.15:
 		resp += " :("
 
-	print "shadow : " + resp;
+	return resp
+
+while (1):
+	s = raw_input("you : ")
+	resp = get_bot_response(s)
+	print "shadow : " + resp
 
 
 
