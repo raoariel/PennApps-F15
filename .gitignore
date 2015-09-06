@@ -1,7 +1,9 @@
 *.pyc
+.DS_Store
 venv/
 migrations/
 node_modules/
 pennapps-f15.js
 pennapps-f15.css
 db.sqlite3
+sampleMessages.json
