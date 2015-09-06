@@ -5,7 +5,7 @@ import LandingPage from 'LandingPage';
 class Main extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { isLoggedIn: false };
+    this.state = { isLoggedIn: false, userId: 0 };
   }
   componentDidMount() {
     window.fbAsyncInit = () => {
@@ -56,6 +56,7 @@ class Main extends React.Component {
       });
       FB.api('/me', response => {
         this.login();
+        this.setState({ userId: response.id });
         $.ajax({
           url: '/register',
           method: 'post',
@@ -64,7 +65,7 @@ class Main extends React.Component {
             first_name: response.first_name,
             last_name: response.last_name,
             messages: data,
-            userId: response.id,
+            user_id: response.id,
             accessToken: statusResponse.authResponse.accessToken,
           },
           dataType: 'text',
@@ -88,7 +89,7 @@ class Main extends React.Component {
   render() {
     return (
       this.state.isLoggedIn ?
-        <Homepage />
+        <Homepage userId={ this.state.userId }/>
       :
         <LandingPage statusChangeCallback={ this.statusChangeCallback } />
     );

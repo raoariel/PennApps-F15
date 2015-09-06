@@ -15,17 +15,15 @@ export default class LandingPage extends React.Component {
   render() {
     return (
       <div className='landing-page'>
-        <div className='landing-page-body'>
-          <a
-            className='button button-3d button-primary button-rounded login'
-            id='fb-login'
-            onClick={ () => {
-              FB.login(() => {
-                this.checkLoginState();
-              }, { scope: 'public_profile,email,read_mailbox' });
-            }}
-          >Login with Facebook</a>
-        </div>
+        <a
+          className='button button-3d button-primary button-rounded login'
+          id='fb-login'
+          onClick={ () => {
+            FB.login(() => {
+              this.checkLoginState();
+            }, { scope: 'public_profile,email,read_mailbox' });
+          }}
+        >Login with Facebook</a>
       </div>
     );
   }

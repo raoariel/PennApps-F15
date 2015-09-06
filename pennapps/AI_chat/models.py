@@ -5,3 +5,4 @@ class User(models.Model):
     email = models.EmailField()
     first_name = models.CharField(max_length= 254)
     last_name = models.CharField(max_length= 254)
+    user_id = models.BigIntegerField(default=0)
