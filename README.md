@@ -1,7 +1,5 @@
 # PennApps-F15 : Plaidypus
 
-=============
-
 **Each one of us has a unique personality that shines through in the way we communicate, most freely with our friends and peers. We decided to create Plaidypus, a personalized AI bot that reflects the styles and quirks of each user it meets.**
 
 ## What it does
